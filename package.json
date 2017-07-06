@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "postinstall": "cd front/ && npm install && gulp build:production",
+    "postinstall": "cd front/ && gulp build:production && cd ..",
     "build": "cd front/ && gulp build:production"
   },
   "dependencies": {
