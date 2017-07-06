@@ -2,7 +2,9 @@ var express = require('express');
 var request = require('request');
 var parser = require('body-parser');
 var md5 = require('md5')
+var redis = require('redis')
 var app = express();
+var client = redis.createClient(process.env.REDIS_URL);
 
 /**
  * Configuration
@@ -49,16 +51,31 @@ function getJSON(url, response, body, headers=FAKE_HEADERS) {
         method: 'POST',
         form: body
     };
-    req = request(options).on('error', function(err) {
-        console.log(err);
-        response.status(500).send({code:'5000', 'msg': err});
-    }).on('response', function(res) {
-        res.on('data', function(data) {
-            response.write(data);
-        }).on('end', function() {
-            response.end()
-        });
-    })
+
+    // add redis cache
+    var key = JSON.stringify(body);
+    client.exists(key, function(err, reply) {
+        if (reply === 1) {
+            client.get(key, function(err, reply) {
+                response.send(reply);
+            });
+        } else {
+            req = request(options).on('error', function(err) {
+                console.log(err);
+                response.status(500).send({code:'5000', 'msg': err});
+            }).on('response', function(res) {
+                var buffer = "";
+                res.on('data', function(data) {
+                    buffer += data;
+                }).on('end', function() {
+                    client.set(key, buffer, function(err, reply){
+                        response.send(buffer)
+                    });
+                });
+            })
+
+        }
+    });
 }
 
 /**

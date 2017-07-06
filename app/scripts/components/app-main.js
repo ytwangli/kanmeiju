@@ -4,7 +4,14 @@ import SearchBox from './search';
 import Card from './card';
 import Video from './video';
 
-var SERVER = 'http://kanmeiju.herokuapp.com'
+
+var SERVER = function() {
+    if(process.env.NODE_ENV == 'production') {    
+        return 'http://kanmeiju.herokuapp.com'
+    } else {
+        return 'http://127.0.0.1:5000'
+    }
+}()
 
 class App extends Component {
   constructor(props) {
