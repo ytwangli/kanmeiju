@@ -8,7 +8,7 @@ var app = express();
  * Configuration
  */
 app.set('port', (process.env.PORT || 5000));
-app.use(express.static(__dirname + '/front/dist'));
+app.use(express.static(__dirname + '/dist'));
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 app.use(function(req, res, next) {

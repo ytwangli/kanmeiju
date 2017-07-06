@@ -1,0 +1,26 @@
+/* logo */
+.logo {
+  width: 100%;
+  max-width: 70px;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  display: block;
+}
+
+
+.header {
+    font-size: 35px;
+    text-decoration: none;
+}
+
+.header a:hover {
+    text-decoration: none;
+}
+
+// sm up
+@include media-breakpoint-up(sm) {
+  .logo {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+}
