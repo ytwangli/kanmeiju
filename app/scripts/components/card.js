@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Video from './Video';
+import Video from './video';
 import ReactPlayer from 'react-player'
 let numeral = require('numeral');
 let backdropIMG;
