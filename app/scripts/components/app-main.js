@@ -6,11 +6,11 @@ import Video from './video';
 
 
 var SERVER = function() {
-    if(process.env.NODE_ENV == 'production') {    
+    //if(process.env.NODE_ENV == 'production') {    
         return 'http://kanmeiju.herokuapp.com'
-    } else {
-        return 'http://127.0.0.1:5000'
-    }
+    //} else {
+    //    return 'http://127.0.0.1:5000'
+    //}
 }()
 
 class App extends Component {
